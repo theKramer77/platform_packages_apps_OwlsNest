@@ -50,6 +50,12 @@
          android:title="@string/alarm_blocker" 
          android:summary="@string/alarm_blocker_summary" />
 
+     <Preference 
+         android:key="wakelock_blocker" 
+         android:fragment="com.aosip.owlsnest.advanced.WakeLockBlocker" 
+         android:title="@string/wakelock_blocker_title" 
+         android:summary="@string/wakelock_blocker_summary" />
+
     <com.aosip.support.preference.GlobalSettingSwitchPreference
         android:key="show_cpu_overlay"
         android:title="@string/show_cpu_info"

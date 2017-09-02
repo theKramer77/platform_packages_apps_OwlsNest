@@ -44,6 +44,12 @@
          android:summary="@string/sensor_block_summary"
          android:defaultValue="false" />
 
+     <Preference 
+         android:key="alarm_blocker" 
+         android:fragment="com.aosip.owlsnest.advanced.AlarmBlocker" 
+         android:title="@string/alarm_blocker" 
+         android:summary="@string/alarm_blocker_summary" />
+
     <com.aosip.support.preference.GlobalSettingSwitchPreference
         android:key="show_cpu_overlay"
         android:title="@string/show_cpu_info"

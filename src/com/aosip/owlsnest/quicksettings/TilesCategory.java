@@ -33,6 +33,7 @@ import com.android.settings.SettingsPreferenceFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.aosip.support.preference.SystemSettingSeekBarPreference;
 
 public class TilesCategory extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Indexable {
@@ -41,6 +42,15 @@ public class TilesCategory extends SettingsPreferenceFragment implements
     private static final String PREF_TILE_ANIM_DURATION = "qs_tile_animation_duration";
     private static final String PREF_TILE_ANIM_INTERPOLATOR = "qs_tile_animation_interpolator";
 
+    private static final String PREF_ROWS_PORTRAIT = "qs_rows_portrait";
+    private static final String PREF_ROWS_LANDSCAPE = "qs_rows_landscape";
+    private static final String PREF_COLUMNS_PORTRAIT = "qs_columns_portrait";
+    private static final String PREF_COLUMNS_LANDSCAPE = "qs_columns_landscape";
+
+    private SystemSettingSeekBarPreference mRowsPortrait;
+    private SystemSettingSeekBarPreference mRowsLandscape;
+    private SystemSettingSeekBarPreference mQsColumnsPortrait;
+    private SystemSettingSeekBarPreference mQsColumnsLandscape;
     private ListPreference mTileAnimationStyle;
     private ListPreference mTileAnimationDuration;
     private ListPreference mTileAnimationInterpolator;
@@ -57,6 +67,30 @@ public class TilesCategory extends SettingsPreferenceFragment implements
         ContentResolver resolver = getActivity().getContentResolver();
         mFooterPreferenceMixin.createFooterPreference().setTitle(R.string.qs_tile_footer);
 
+       //QS panel columns and rows
+        mRowsPortrait = (SystemSettingSeekBarPreference) findPreference(PREF_ROWS_PORTRAIT);
+        int rowsPortrait = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_ROWS_PORTRAIT, 3, UserHandle.USER_CURRENT);
+        mRowsPortrait.setValue(rowsPortrait);
+        mRowsPortrait.setOnPreferenceChangeListener(this);
+
+        mRowsLandscape = (SystemSettingSeekBarPreference) findPreference(PREF_ROWS_LANDSCAPE);
+        int rowsLandscape = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_ROWS_LANDSCAPE, 2, UserHandle.USER_CURRENT);
+        mRowsLandscape.setValue(rowsLandscape);
+        mRowsLandscape.setOnPreferenceChangeListener(this);
+
+        mQsColumnsPortrait = (SystemSettingSeekBarPreference) findPreference(PREF_COLUMNS_PORTRAIT);
+        int columnsQs = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_COLUMNS_PORTRAIT, 3, UserHandle.USER_CURRENT);
+        mQsColumnsPortrait.setValue(columnsQs);
+        mQsColumnsPortrait.setOnPreferenceChangeListener(this);
+
+        mQsColumnsLandscape = (SystemSettingSeekBarPreference) findPreference(PREF_COLUMNS_LANDSCAPE);
+        columnsQs = Settings.System.getIntForUser(resolver,
+                Settings.System.QS_COLUMNS_LANDSCAPE, 5, UserHandle.USER_CURRENT);
+        mQsColumnsLandscape.setValue(columnsQs);
+        mQsColumnsLandscape.setOnPreferenceChangeListener(this);
 
         // QS animation
         mTileAnimationStyle = (ListPreference) findPreference(PREF_TILE_ANIM_STYLE);
@@ -87,7 +121,27 @@ public class TilesCategory extends SettingsPreferenceFragment implements
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         ContentResolver resolver = getActivity().getContentResolver();
-        if (preference == mTileAnimationStyle) {
+          if (preference == mRowsPortrait) {
+            int value = (Integer) newValue;
+            Settings.System.putIntForUser(resolver,
+                    Settings.System.QS_ROWS_PORTRAIT, value, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mRowsLandscape) {
+            int value = (Integer) newValue;
+            Settings.System.putIntForUser(resolver,
+                    Settings.System.QS_ROWS_LANDSCAPE, value, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mQsColumnsPortrait) {
+            int value = (Integer) newValue;
+            Settings.System.putIntForUser(resolver,
+                    Settings.System.QS_COLUMNS_PORTRAIT, value, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mQsColumnsLandscape) {
+            int value = (Integer) newValue;
+            Settings.System.putIntForUser(resolver,
+                    Settings.System.QS_COLUMNS_LANDSCAPE, value, UserHandle.USER_CURRENT);
+            return true;
+       } else if (preference == mTileAnimationStyle) {
             int tileAnimationStyle = Integer.valueOf((String) newValue);
             Settings.System.putIntForUser(resolver, Settings.System.ANIM_TILE_STYLE,
                     tileAnimationStyle, UserHandle.USER_CURRENT);

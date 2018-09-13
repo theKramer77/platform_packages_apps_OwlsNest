@@ -488,6 +488,21 @@
     <string name="dialog_delete_message">Ausgewähltes Objekt entfernen?</string>
     <string name="app_ops_settings_summary">App-Berechtigungen verwalten</string>
 
+    <!-- Wakelock blocker -->
+    <string name="misc_title">Sonstiges</string>
+    <string name="wakelock_blocker_title">Wakelock-Blocker</string>
+    <string name="wakelock_blocker_summary">Blockiere System-Wakelocks</string>
+    <string name="wakelock_blocker_save">Speichern</string>
+    <string name="wakelock_list_header">Vorhandene Wakelocks</string>
+    <string name="wakelock_blocker_reload">Neu laden</string>
+
+    <!-- Alarm blocker -->
+    <string name="alarm_blocker_title">Alarm-Blocker</string>
+    <string name="alarm_blocker_summary">Alarme bei abgeschalteten Bildschirm blockieren</string>
+    <string name="alarm_blocker_save">Speichern</string>
+    <string name="alarm_list_header">Verfügbare Alarme</string>
+    <string name="alarm_blocker_reload">Neu laden</string>
+
     <!-- Sensor block per-package -->
     <string name="sensor_block_title">Sensor blockieren pro Paket</string>
     <string name="sensor_block_summary">Den Zugriff auf bestimmte Sensoren für manche Apps blockieren, um Akku zu sparen.</string>

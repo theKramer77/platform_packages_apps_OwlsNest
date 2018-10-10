@@ -78,13 +78,13 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
     private AlertDialog mDialog;
 
     private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
-    private static final String RECENTS_COMPONENT_TYPE = "recents_component";
+    private static final String RECENTS_LAYOUT_STYLE_PREF = "recents_layout_style";
     private static final String CATEGORY_OREO_STYLE_OPTIONS = "category_oreo_style_options";
 
     private ListPreference mRecentsClearAllLocation;
     private SwitchPreference mRecentsClearAll;
-    private ListPreference mRecentsComponentType;
     private PreferenceCategory mOreoStyleOptions;
+    private ListPreference mRecentsLayoutStylePref;
 
     @Override
     public int getMetricsCategory() {
@@ -106,13 +106,13 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
         mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntry());
         mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
 
-        // recents component type
-        mRecentsComponentType = (ListPreference) findPreference(RECENTS_COMPONENT_TYPE);
+        // recents layout style
+        mRecentsLayoutStylePref = (ListPreference) findPreference(RECENTS_LAYOUT_STYLE_PREF);
         int type = Settings.System.getInt(resolver,
-                Settings.System.RECENTS_COMPONENT, 0);
-        mRecentsComponentType.setValue(String.valueOf(type));
-        mRecentsComponentType.setSummary(mRecentsComponentType.getEntry());
-        mRecentsComponentType.setOnPreferenceChangeListener(this);
+                Settings.System.RECENTS_LAYOUT_STYLE, 0);
+        mRecentsLayoutStylePref.setValue(String.valueOf(type));
+        mRecentsLayoutStylePref.setSummary(mRecentsLayoutStylePref.getEntry());
+        mRecentsLayoutStylePref.setOnPreferenceChangeListener(this);
 
         // Hide clear-all options if set to Pie/horizontal style
         mOreoStyleOptions = (PreferenceCategory) findPreference(CATEGORY_OREO_STYLE_OPTIONS);
@@ -132,12 +132,12 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
                     Settings.System.RECENTS_CLEAR_ALL_LOCATION, location, UserHandle.USER_CURRENT);
             mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntries()[index]);
         return true;
-       } else if (preference == mRecentsComponentType) {
+       } else if (preference == mRecentsLayoutStylePref) {
             int type = Integer.valueOf((String) newValue);
-            int index = mRecentsComponentType.findIndexOfValue((String) newValue);
+            int index = mRecentsLayoutStylePref.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
-                    Settings.System.RECENTS_COMPONENT, type);
-            mRecentsComponentType.setSummary(mRecentsComponentType.getEntries()[index]);
+                    Settings.System.RECENTS_LAYOUT_STYLE, type);
+            mRecentsLayoutStylePref.setSummary(mRecentsLayoutStylePref.getEntries()[index]);
             if (type == 1) { // Disable swipe up gesture, if oreo type selected
                Settings.Secure.putInt(getActivity().getContentResolver(),
                     Settings.Secure.SWIPE_UP_TO_SWITCH_APPS_ENABLED, 0);

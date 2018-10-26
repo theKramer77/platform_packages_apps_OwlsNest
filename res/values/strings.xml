@@ -631,4 +631,7 @@
     <string name="alarm_blocker_save">Save</string>
     <string name="alarm_list_header">Available alarms</string>
     <string name="alarm_blocker_reload">Reload</string>
+
+    <!-- QuickSettings Panel Transparency -->
+    <string name="qs_panel_alpha_title">QS panel transparency</string>
 </resources>

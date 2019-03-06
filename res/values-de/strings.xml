@@ -487,4 +487,8 @@
     <string name="dialog_delete_title">Löschen</string>
     <string name="dialog_delete_message">Ausgewähltes Objekt entfernen?</string>
     <string name="app_ops_settings_summary">App-Berechtigungen verwalten</string>
+
+    <!-- Sensor block per-package -->
+    <string name="sensor_block_title">Sensor blockieren pro Paket</string>
+    <string name="sensor_block_summary">Den Zugriff auf bestimmte Sensoren für manche Apps blockieren, um Akku zu sparen.</string>
 </resources>

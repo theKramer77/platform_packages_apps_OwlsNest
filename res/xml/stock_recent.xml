@@ -53,5 +53,27 @@
         android:dependency="show_clear_all_recents" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="alternative_recents_category"
+        android:title="@string/alternative_recents_category">
+
+        <com.android.settingslib.widget.FooterPreference
+            android:key="swipe_up_enabled_warning"
+            android:selectable="false"
+            android:title="@string/alternative_recents_swipe_up_enabled_warning_summary" />
+
+        <SwitchPreference
+            android:key="use_slim_recents"
+            android:title="@string/slim_recents_title"
+            android:defaultValue="false" />
+
+        <Preference
+            android:key="slim_recents_settings"
+            android:title="@string/slim_recents_settings_title"
+            android:fragment="com.aosip.owlsnest.recent.SlimRecents"
+            android:dependency="use_slim_recents" />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
 

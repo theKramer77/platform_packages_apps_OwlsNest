@@ -16,6 +16,7 @@
 
 package com.aosip.owlsnest.recent;
 
+import android.provider.Settings;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.SharedPreferences;
@@ -47,6 +48,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
+import android.os.Bundle;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.settings.R;
@@ -83,11 +87,8 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
 
     private AlertDialog mDialog;
 
-    private static final String RECENTS_CLEAR_ALL_LOCATION = "recents_clear_all_location";
     private static final String CATEGORY_OREO_STYLE_OPTIONS = "category_oreo_style_options";
 
-    private ListPreference mRecentsClearAllLocation;
-    private SwitchPreference mRecentsClearAll;
     private PreferenceCategory mOreoStyleOptions;
     private PreferenceCategory mSlimCat;
 
@@ -103,14 +104,6 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
         addPreferencesFromResource(R.xml.stock_recent);
         ContentResolver resolver = getActivity().getContentResolver();
 
-        // clear all recents
-        mRecentsClearAllLocation = (ListPreference) findPreference(RECENTS_CLEAR_ALL_LOCATION);
-        int location = Settings.System.getIntForUser(resolver,
-                Settings.System.RECENTS_CLEAR_ALL_LOCATION, 3, UserHandle.USER_CURRENT);
-        mRecentsClearAllLocation.setValue(String.valueOf(location));
-        mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntry());
-        mRecentsClearAllLocation.setOnPreferenceChangeListener(this);
-
         // recents layout style
         mRecentsLayoutStylePref = (ListPreference) findPreference(RECENTS_LAYOUT_STYLE_PREF);
         int type = Settings.System.getInt(resolver,
@@ -118,10 +111,6 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
         mRecentsLayoutStylePref.setValue(String.valueOf(type));
         mRecentsLayoutStylePref.setSummary(mRecentsLayoutStylePref.getEntry());
         mRecentsLayoutStylePref.setOnPreferenceChangeListener(this);
-
-        // Hide clear-all options if set to Pie/horizontal style
-        mOreoStyleOptions = (PreferenceCategory) findPreference(CATEGORY_OREO_STYLE_OPTIONS);
-        updateOreoClearAll(type == 1);
 
         // Slim Recents
         mSlimCat = (PreferenceCategory) findPreference(KEY_CATEGORY_SLIM);
@@ -166,25 +155,13 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        if (preference == mRecentsClearAllLocation) {
-            int location = Integer.valueOf((String) newValue);
-            int index = mRecentsClearAllLocation.findIndexOfValue((String) newValue);
-            Settings.System.putIntForUser(getActivity().getContentResolver(),
-                    Settings.System.RECENTS_CLEAR_ALL_LOCATION, location, UserHandle.USER_CURRENT);
-            mRecentsClearAllLocation.setSummary(mRecentsClearAllLocation.getEntries()[index]);
-        return true;
-       } else if (preference == mRecentsLayoutStylePref) {
+            if (preference == mRecentsLayoutStylePref) {
             int type = Integer.valueOf((String) newValue);
             int index = mRecentsLayoutStylePref.findIndexOfValue((String) newValue);
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.RECENTS_LAYOUT_STYLE, type);
             mRecentsLayoutStylePref.setSummary(mRecentsLayoutStylePref.getEntries()[index]);
             updateRecentsState(type);
-            if (type == 1) { // Disable swipe up gesture, if oreo type selected
-               Settings.Secure.putInt(getActivity().getContentResolver(),
-                    Settings.Secure.SWIPE_UP_TO_SWITCH_APPS_ENABLED, 0);
-            }
-            updateOreoClearAll(type == 1);
         return true;
         }
 

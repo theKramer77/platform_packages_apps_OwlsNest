@@ -87,10 +87,11 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
 
     private AlertDialog mDialog;
 
-    private static final String CATEGORY_OREO_STYLE_OPTIONS = "category_oreo_style_options";
-
-    private PreferenceCategory mOreoStyleOptions;
     private PreferenceCategory mSlimCat;
+
+    private static final String RECENTS_COMPONENT_TYPE = "recents_component";
+
+    private ListPreference mRecentsComponentType;
 
     @Override
     public int getMetricsCategory() {
@@ -149,9 +150,9 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
         }
     }
 
-    private void updateOreoClearAll(boolean isOreo) {
-        mOreoStyleOptions.setEnabled(isOreo);
-        mOreoStyleOptions.setSelectable(isOreo);
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -162,6 +163,7 @@ public class StockRecentCategory extends SettingsPreferenceFragment implements
                     Settings.System.RECENTS_LAYOUT_STYLE, type);
             mRecentsLayoutStylePref.setSummary(mRecentsLayoutStylePref.getEntries()[index]);
             updateRecentsState(type);
+            Utils.showSystemUiRestartDialog(getContext());
         return true;
         }
 

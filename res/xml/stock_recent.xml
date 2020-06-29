@@ -35,11 +35,6 @@
         android:summary="@string/recents_icon_pack_summary" />
 
     <PreferenceCategory
-        android:key="category_oreo_style_options"
-        android:title="@string/aosp_recents_category">
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:key="alternative_recents_category"
         android:title="@string/alternative_recents_category">
 

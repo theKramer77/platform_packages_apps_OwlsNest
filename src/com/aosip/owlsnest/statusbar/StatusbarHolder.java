@@ -30,7 +30,6 @@ import android.view.ViewGroup;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
-import com.android.internal.util.aosip.aosipUtils;
 
 import com.aosip.owlsnest.PagerSlidingTabStrip;
 
@@ -87,9 +86,7 @@ public class StatusbarHolder extends SettingsPreferenceFragment {
             frags[2] = new BatteryCategory();
             frags[3] = new IconsCategory();
             frags[4] = new TrafficCategory();
-            try {
-                frags[5] = new TickerCategory();
-            } catch (IndexOutOfBoundsException ignored) {/* Do nothing */}
+            frags[5] = new TickerCategory();
         }
 
         @Override
@@ -109,22 +106,14 @@ public class StatusbarHolder extends SettingsPreferenceFragment {
     }
 
     private String[] getTitles() {
-        boolean notchDevice = aosipUtils.hasNotch(getActivity());
-        if (notchDevice) {
-            return new String[]{
-                getString(R.string.clock_category),
-                getString(R.string.carrier_category),
-                getString(R.string.battery_category),
-                getString(R.string.icon_category),
-                getString(R.string.traffic_category)};
-        } else {
-            return new String[]{
+        String titleString[];
+        titleString = new String[]{
                 getString(R.string.clock_category),
                 getString(R.string.carrier_category),
                 getString(R.string.battery_category),
                 getString(R.string.icon_category),
                 getString(R.string.traffic_category),
                 getString(R.string.ticker_category)};
-        }
+        return titleString;
     }
 }

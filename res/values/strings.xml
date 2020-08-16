@@ -360,6 +360,9 @@
     <string name="powermenu_screenshot_summary">Show a button in the power menu to take screenshots</string>
     <string name="powermenu_airplane_title">Airplane mode</string>
 
+    <!-- Power Button Ends Call -->
+    <string name="toggle_power_button_ends_call_preference">Power Button Ends Call</string>
+
     <!--Vol button rotation swap-->
     <string name="swap_volume_buttons">Rotation Swap</string>
     <string name="volume_keys_swap_summary">Swap volume buttons based on device rotation</string>

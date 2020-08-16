@@ -40,6 +40,11 @@
         android:summary="@string/powermenu_screenshot_summary"
         android:defaultValue="false" />
 
+   <SwitchPreference
+        android:key="toggle_power_button_ends_call_preference"
+        android:title="@string/accessibility_power_button_ends_call_prerefence_title"
+        android:persistent="false"/>
+
     <com.aosip.support.preference.SecureSettingSwitchPreference
         android:key="lockscreen_power_menu_disabled"
         android:title="@string/lockscreen_power_menu_disabled_title"
